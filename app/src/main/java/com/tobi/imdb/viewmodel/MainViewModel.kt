@@ -13,10 +13,16 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
+/**
+ * View Model of the main activity that has the DAO object
+ * and is referenced from the UI to get the list of movies
+ */
 class MainViewModel : ViewModel() {
     private val repository =  MovieListDao()
-//    private val _moviesShared = MutableStateFlow<List<Movie>?>()
-//    val movies: StateFlow<List<Movie>> get() = _moviesShared.asStateFlow()
+    // We must Initialize the state flow with empty list
+    private val _moviesShared = MutableStateFlow<List<Movie>>(ArrayList())
+    // The UI will collect from here the new movies value
+    val movies: StateFlow<List<Movie>> get() = _moviesShared.asStateFlow()
 
     /**
      * fetch movies from retrofit using flows
@@ -26,15 +32,16 @@ class MainViewModel : ViewModel() {
             repository.getMovies()
                 .flowOn(Dispatchers.IO)
                 .catch { e ->
-                    // handle exception
+                    // log exception with a formatted message
                     Timber.e(e)
                 }
-                .collect {
-                    // list of users from the network
-//                    _moviesShared = it
-                    Timber.i(it.toString())
+                .collect { list ->
+                    // ask if the returned list is not null
+                    list?.let {
+                        _moviesShared.value = it
+                        Timber.i(it.toString())
+                    }
                 }
-
         }
     }
 

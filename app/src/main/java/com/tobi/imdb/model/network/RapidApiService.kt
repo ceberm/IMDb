@@ -5,7 +5,9 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Headers
 
-
+/**
+ * Interface required to send to retrofit service
+ */
 interface RapidApiService {
     /**
      * This function will return the list of the 100 top ranked movies

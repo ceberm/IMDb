@@ -21,8 +21,12 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        //Add Timber to show better formatted logs
         Timber.plant(Timber.DebugTree())
+        // Create the ViewModel
         val mainViewModel: MainViewModel by viewModels()
+        //Fetch the movies and keep them on the state
         mainViewModel.fetchMovies()
 
         setContent {
@@ -35,7 +39,6 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-        //Add Timber Plant to Log Elegant error logs and information logs on logcat
 
     }
 }
