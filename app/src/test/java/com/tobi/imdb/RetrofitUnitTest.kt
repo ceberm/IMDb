@@ -1,8 +1,9 @@
 package com.tobi.imdb
 
 import com.tobi.imdb.model.network.HttpServiceGenerator
-import com.tobi.imdb.model.network.RapidApiService
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNotNull
 import org.junit.Test
 
 /**

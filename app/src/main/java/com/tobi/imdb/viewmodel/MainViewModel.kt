@@ -18,6 +18,7 @@ import timber.log.Timber
  * and is referenced from the UI to get the list of movies
  */
 class MainViewModel : ViewModel() {
+    // Instantiate DAO for movies
     private val repository =  MovieListDao()
     // We must Initialize the state flow with empty list
     private val _moviesShared = MutableStateFlow<List<Movie>>(ArrayList())
@@ -39,7 +40,7 @@ class MainViewModel : ViewModel() {
                     // ask if the returned list is not null
                     list?.let {
                         _moviesShared.value = it
-                        Timber.i(it.toString())
+                        Timber.i("Query Success! Movies Retrieved")
                     }
                 }
         }
